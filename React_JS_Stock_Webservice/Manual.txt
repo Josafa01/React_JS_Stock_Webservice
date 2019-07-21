@@ -1,0 +1,5 @@
+1 - Instalar wamp/xampp 
+2 - Instalar npm/node
+3 - Comando npm install
+4 - gulp 
+5 - Usar webservice_stock em webservice_php
