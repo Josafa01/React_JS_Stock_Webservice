@@ -35,7 +35,7 @@ export const LogOut = () => {
 
 export const watchLogin = () => {
     return (dispatch) => {
-        let jwt = localStorage.getItem('jwt')
+        let jwt = localStorage.getItem('jwt');
         if(jwt != null && jwt != '') {
             dispatch({
                 type:'getStatus',
@@ -57,7 +57,7 @@ export const watchLogin = () => {
 
 export const LoginUser = (email, pass) => {
     return  (dispatch)=>{
-        let endpoint = 'http://192.XXX.X.XX/webservice_stock/user/login';
+        let endpoint = 'http://192.168.0.102/webservice_stock/user/login';
         let Data = JSON.stringify({
             email:email,
             pass:pass
@@ -91,7 +91,7 @@ export const LoginUser = (email, pass) => {
 
 export const InsertNewUser = (name, email, pass) => {
     return  (dispatch)=>{
-        let endpoint = 'http://192.XXX.X.XX/webservice_stock/user/new_user';
+        let endpoint = 'http://192.168.0.102/webservice_stock/user/new_user';
         let Data = JSON.stringify({
             name:name,
             email:email,

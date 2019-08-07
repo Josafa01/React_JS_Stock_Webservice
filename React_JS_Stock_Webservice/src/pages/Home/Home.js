@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { watchLogin, LogOut } from '../../actions/AuthActions';
 
@@ -9,8 +9,8 @@ export class Home extends Component {
 		super(props);
 		this.state = {
 			
-		};
-
+        };
+        
 		this.logout = this.logout.bind(this);
 		this.backLoginScreen = this.backLoginScreen.bind(this);
 		this.verifyStatus = this.verifyStatus.bind(this);
@@ -22,24 +22,25 @@ export class Home extends Component {
     }
 
     backLoginScreen() {
-        this.props.history.push('/login');
+        this.props.history.push('/Login');
 	}
 	
 	
 	verifyStatus() {
 
         let status = this.props.isLogged;
+        console.log(this.props);
 
         switch(status) {
             case 1:
-                this.props.history.push('/home');
+                <Redirect to="/Home" />
                break;
             case 2:
-                this.props.history.push('/login');
+                this.logout();
                 break;
             default:
-				this.props.history.push('/login');
-            
+                this.logout();
+                
         }
     }
 
@@ -57,7 +58,7 @@ export class Home extends Component {
 				<h1>Página Home...</h1><br/>
 
 				<button onClick={this.logout}>Sair</button>
-				<Link to="/sobre">Ir para página sobre</Link>
+				<Link to="/Sobre">Ir para página sobre</Link>
 			</div>
 		);
 	}

@@ -7,10 +7,11 @@ import ReduxThunk from 'redux-thunk';
 import Config from './Config';
 import Reducers from './Reducers';
 
-import Loader from './pages/Loader';
-import  Home  from './pages/Home';
-import  Login from './pages/Login';
-import { Sobre } from './pages/Sobre';
+import Loader  from './pages/Loader';
+import  Home   from './pages/Home';
+import  Login  from './pages/Login';
+import  Sobre  from './pages/Sobre';
+import  SingUp from './pages/SingUp';
 import { NotFound }  from './pages/NotFound';
 
 let store = createStore(Reducers, applyMiddleware(ReduxThunk));
@@ -24,9 +25,10 @@ class App extends Component {
 					<div>
 						<Switch>
 							<Route exact path="/" component={Loader} />
-							<Route path="/home" component={Home} />
-							<Route path="/login" component={Login} />
-							<Route path="/sobre" component={Sobre} />
+							<Route path="/Home" component={Home} />
+							<Route path="/Login" component={Login} />
+							<Route path="/Sobre" component={Sobre} />
+							<Route path="/SingUp" component={SingUp} />
 							<Route path="*" component={NotFound} />
 						</Switch>
 					</div>

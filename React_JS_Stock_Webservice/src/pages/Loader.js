@@ -15,22 +15,45 @@ class Loader extends Component {
         this.backLoginScreen = this.backLoginScreen.bind(this);
 	}
 
-	componentDidMount() {
-        this.props.watchLogin();
-    }
-
     logout() {
         this.props.LogOut();
         this.backLoginScreen();
     }
 
     backLoginScreen() {
-        this.props.history.push('/login');
+        this.props.history.push('/Login');
     }
+
+    verifyStatus() {
+
+        let status = this.props.isLogged;
+        console.log(this.props);
+
+        switch(status) {
+            case 1:
+                this.props.history.push('/Home');
+               break;
+            case 2:
+                this.logout();
+                break;
+            default:
+                this.logout();
+            
+        }
+    }
+
+    componentDidMount() {
+        this.props.watchLogin();
+    }
+
+    componentDidUpdate() {
+        this.verifyStatus();
+    }
+
 
 	render() {
 		return (
-            <div>{this.logout()}</div>
+            <div>Loading...</div>
 		);
 	}
 }

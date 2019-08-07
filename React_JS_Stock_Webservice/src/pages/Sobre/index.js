@@ -1,1 +1,2 @@
-export * from './Sobre';
+import Sobre from './Sobre';
+export default Sobre;

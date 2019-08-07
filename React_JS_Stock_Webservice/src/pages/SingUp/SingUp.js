@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
 import { Link, Redirect  } from 'react-router-dom';
-import CSS from './Login.css';
+import CSS from './SingUp.css';
 import { connect } from 'react-redux';
-import { watchLogin, getName, LoginUser, getEmail, getPass } from '../../actions/AuthActions';
+import { watchLogin, getName, InsertNewUser, getEmail, getPass } from '../../actions/AuthActions';
 
-class Login extends Component {
+class SingUp extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            name:'',
             email:'',
             pass:'',
-            submitted: false,
+            submitted: false
         };
 
+        this.handleNameChange  = this.handleNameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handlePassChange = this.handlePassChange.bind(this);
+        this.handlePassChange  = this.handlePassChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
-        this.login = this.login.bind(this);
-        this.watchStatus = this.watchStatus.bind(this);
+        this.sgp = this.sgp.bind(this);
+        this.watchStatus  = this.watchStatus.bind(this);
+    }
+
+    handleNameChange(event) { 
+        this.setState ({name: event.target.value}); 
     }
 
     handleEmailChange(event) { 
@@ -34,9 +40,9 @@ class Login extends Component {
         event.preventDefault();
 
         this.setState({ submitted: true });
-        const { email, pass } = this.state;
-        if(email && pass) {
-            this.login(email, pass);
+        const { name, email, pass } = this.state;
+        if(name && email && pass) {
+            this.sgp(name, email, pass);
         }
         
     }
@@ -56,11 +62,15 @@ class Login extends Component {
         } 
     }
 
-    login(email, pass) {
-        this.props.LoginUser(
+    sgp(name, email, pass) {
+        this.props.InsertNewUser(
+            name,
             email,
             pass
         );
+
+        this.props.watchLogin();
+        this.watchStatus();
     }
 
 
@@ -70,6 +80,11 @@ class Login extends Component {
 				<h1 class="title-login">Login</h1>
 
                 <form class="form" onSubmit={this.handleSubmit}>
+                    <label>
+                    Nome:
+                    <input type="text" name="nqame" value={this.state.value} onChange={this.handleNameChange} />
+                    </label>
+
                     <label>
                     Email:
                     <input type="email" name="email" value={this.state.value} onChange={this.handleEmailChange} />
@@ -82,7 +97,7 @@ class Login extends Component {
                     <input type="submit" value="Enviar" />
                 </form>
 
-                <Link to="/SingUp">Faça seu cadastro aqui!</Link>
+                <Link to="/Login">Voltar</Link>
 
 			</div>
 		);
@@ -92,11 +107,12 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        name:state.auth.name,
         email:state.auth.email,
         pass:state.auth.pass,
         isLogged:state.auth.isLogged
     }
 }
 
-const LoginConnect = connect(mapStateToProps, {watchLogin, LoginUser, getName, getEmail, getPass})(Login);
-export default LoginConnect;
+const SingUpConnect = connect(mapStateToProps, {watchLogin, InsertNewUser, getName, getEmail, getPass})(SingUp);
+export default SingUpConnect;
